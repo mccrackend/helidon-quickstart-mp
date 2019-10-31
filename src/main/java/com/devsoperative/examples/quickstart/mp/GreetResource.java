@@ -17,6 +17,7 @@
 package com.devsoperative.examples.quickstart.mp;
 
 import java.util.Collections;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -31,6 +32,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import static java.util.logging.Level.INFO;
 
 /**
  * A simple JAX-RS resource to greet you. Examples:
@@ -51,6 +54,7 @@ import javax.ws.rs.core.Response;
 public class GreetResource {
 
     private static final JsonBuilderFactory JSON = Json.createBuilderFactory(Collections.emptyMap());
+    private static final Logger logger = Logger.getLogger(GreetResource.class.getName());
 
     /**
      * The greeting message provider.
@@ -77,6 +81,7 @@ public class GreetResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getDefaultMessage() {
+        logger.log(INFO, "Called /greet");
         return createResponse("World");
     }
 
@@ -91,6 +96,7 @@ public class GreetResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getMessage(@PathParam("name") String name) {
+        logger.log(INFO, "Called /greet/{name}");
         return createResponse(name);
     }
 
